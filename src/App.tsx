@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomePage } from './HomePage';
@@ -9,8 +9,91 @@ import { LandingPage } from './LandingPage';
 import { BlogPostPage } from './BlogPostPage';
 import { User } from './types';
 import { dbService } from './services/db';
-
 import { AdminPage } from './AdminPage';
+
+const SITE_URL = 'https://14evertonalbertocorrea-coder-digive.vercel.app';
+
+function SeoUpdater() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const seoMap: Record<string, { title: string; description: string }> = {
+      '/': {
+        title: 'Teste de Digitação Online Grátis | DigiVelox Brasil',
+        description: 'Faça um teste de digitação online grátis e descubra sua velocidade em palavras por minuto, precisão e erros.',
+      },
+      '/ranking': {
+        title: 'Ranking de Digitação Online | DigiVelox Brasil',
+        description: 'Veja o ranking dos melhores resultados no teste de digitação online do DigiVelox Brasil.',
+      },
+      '/teste-digitacao-online': {
+        title: 'Teste de Digitação Online Grátis em Português',
+        description: 'Teste sua velocidade de digitação online em português e descubra seu PPM agora.',
+      },
+      '/teste-ppm': {
+        title: 'Teste PPM Online | Palavras por Minuto',
+        description: 'Meça suas palavras por minuto com um teste PPM online rápido, gratuito e fácil.',
+      },
+      '/treino-teclado': {
+        title: 'Treino de Teclado Online para Digitar Mais Rápido',
+        description: 'Treine sua digitação no teclado com exercícios online e melhore sua velocidade.',
+      },
+      '/curso-digitacao': {
+        title: 'Curso de Digitação Online Grátis | DigiVelox Brasil',
+        description: 'Aprenda a digitar melhor com treino online, dicas práticas e teste de velocidade.',
+      },
+    };
+
+    const data = seoMap[location.pathname] || seoMap['/'];
+    const canonicalUrl = `${SITE_URL}${location.pathname}`;
+
+    document.title = data.title;
+
+    const setMeta = (name: string, content: string) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    const setProperty = (property: string, content: string) => {
+      let tag = document.querySelector(`meta[property="${property}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('property', property);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', canonicalUrl);
+
+    setMeta('description', data.description);
+    setMeta('robots', 'index, follow');
+    setMeta('language', 'pt-BR');
+
+    setProperty('og:title', data.title);
+    setProperty('og:description', data.description);
+    setProperty('og:url', canonicalUrl);
+    setProperty('og:type', 'website');
+    setProperty('og:locale', 'pt_BR');
+
+    setMeta('twitter:card', 'summary_large_image');
+    setMeta('twitter:title', data.title);
+    setMeta('twitter:description', data.description);
+  }, [location.pathname]);
+
+  return null;
+}
 
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -30,9 +113,10 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <SeoUpdater />
       <div className="min-h-screen flex flex-col bg-[#0b0e14] text-white">
         <Header user={user} onLogin={handleLogin} />
-        
+
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<HomePage user={user} />} />
