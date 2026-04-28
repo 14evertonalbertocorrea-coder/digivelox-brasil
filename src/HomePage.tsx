@@ -84,13 +84,22 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
           </div>
         </div>
 
-        <div className="mt-auto p-4 bg-brand-neon/5 border border-brand-neon/20 rounded-lg text-center">
-          <span className="text-[10px] text-gray-500 uppercase block mb-3 font-bold tracking-widest">Patrocinado</span>
-          <div className="w-full aspect-square bg-[#1A1D23] rounded flex items-center justify-center text-gray-700 text-[10px] font-bold text-center px-2">
-            ESPAÇO ADSENSE 200x200
-          </div>
-        </div>
-      </aside>
+       <div className="mt-auto p-4 bg-gradient-to-br from-brand-neon/10 to-black border border-brand-neon/20 rounded-lg text-center hover:border-brand-neon/40 transition-all">
+  <span className="text-[10px] text-brand-neon uppercase block mb-3 font-bold tracking-widest">Oferta Recomendada</span>
+  
+  <a 
+    href="https://s.shopee.com.br/5Aouf22y52" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="block"
+  >
+    <div className="w-full aspect-square bg-[#1A1D23] rounded flex flex-col items-center justify-center text-center px-3 hover:scale-105 transition-transform">
+      <span className="text-4xl mb-2">⌨️</span>
+      <span className="text-sm font-black text-white leading-tight">TECLADOS PARA DIGITAR MAIS RÁPIDO</span>
+      <span className="text-[11px] text-brand-neon mt-2 font-bold">VER OFERTAS NA SHOPEE</span>
+    </div>
+  </a>
+</div>
 
       {/* Main */}
       <main className="flex-1 p-8 flex flex-col items-center justify-center relative overflow-hidden">
@@ -178,15 +187,25 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
           </a>
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-gray-800 rounded-xl p-4 bg-black/20">
-          <span className="text-gray-600 text-[10px] uppercase font-bold mb-4 tracking-[0.2em]">Ads Side (160x600)</span>
-          <div className="w-full h-full bg-[#1A1D23] rounded flex flex-col items-center justify-center text-gray-800 italic font-black text-center p-4">
-            <span className="text-xl mb-2">BANNER</span>
-            <span className="text-3xl">GOOGLE</span>
-            <span className="text-xl mt-2 text-gray-700">ADSENSE</span>
-          </div>
-        </div>
-      </aside>
+        <div className="flex-1 flex flex-col items-center justify-center border border-brand-neon/20 rounded-xl p-4 bg-gradient-to-b from-black to-[#111] hover:border-brand-neon/50 transition-all">
+  <span className="text-brand-neon text-[10px] uppercase font-bold mb-4 tracking-[0.2em]">RECOMENDADO PARA ALTO PPM</span>
+
+  <a 
+    href="https://s.shopee.com.br/5Aouf22y52" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="w-full h-full"
+  >
+    <div className="w-full h-full rounded flex flex-col items-center justify-center text-center p-4 hover:scale-[1.02] transition-transform">
+      <span className="text-6xl mb-4">⌨️</span>
+      <span className="text-xl text-white font-black mb-2">MELHORES TECLADOS MECÂNICOS</span>
+      <span className="text-sm text-gray-400 mb-4">Mais conforto, precisão e velocidade para aumentar seu PPM</span>
+      <span className="px-4 py-2 bg-brand-neon/20 border border-brand-neon text-brand-neon rounded-lg font-bold text-sm">
+        VER PROMOÇÕES SHOPEE
+      </span>
+    </div>
+  </a>
+</div>
 
       <AnimatePresence>
         {showResults && lastStats && (
