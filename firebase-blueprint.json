@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile with typing stats and achievements.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "email": { "type": "string" },
+        "bestWPM": { "type": "number" },
+        "totalTests": { "type": "number" },
+        "badges": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "bestWPM"]
+    },
+    "Ranking": {
+      "title": "Leadboard Entry",
+      "description": "A single entry in the global ranking.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "wpm": { "type": "number" },
+        "accuracy": { "type": "number" },
+        "mode": { "type": "string", "enum": ["15s", "30s", "60s"] },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "wpm", "timestamp"]
+    },
+    "TypingText": {
+      "title": "Typing Content",
+      "description": "Text source for the typing test.",
+      "type": "object",
+      "properties": {
+        "content": { "type": "string" },
+        "category": { "type": "string" },
+        "difficulty": { "type": "string", "enum": ["easy", "medium", "hard"] }
+      },
+      "required": ["content"]
+    },
+    "BlogPost": {
+      "title": "SEO Blog Post",
+      "description": "Content for the typing tips blog.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "content": { "type": "string" },
+        "excerpt": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "slug", "content"]
+    }
+  },
+  "firestore": {
+    "users": {
+      "schema": "User",
+      "description": "Collection of user profiles."
+    },
+    "rankings": {
+      "schema": "Ranking",
+      "description": "Historical high scores for leaderboard."
+    },
+    "typing_texts": {
+      "schema": "TypingText",
+      "description": "Source texts for the game."
+    },
+    "blog_posts": {
+      "schema": "BlogPost",
+      "description": "Articles for SEO and user education."
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "DigiVelox Brasil | Teste de Digitação Online e PPM",
+  "description": "O melhor teste de digitação online gratuito do Brasil. Meça seu PPM (palavras por minuto), precisão e velocidade. Pratique digitação e suba no ranking global.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "Firebase Authentication",
+    "Real-time Leaderboards",
+    "Shareable Score Cards"
+  ]
+}
