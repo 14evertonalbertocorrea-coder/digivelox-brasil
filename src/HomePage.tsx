@@ -3,6 +3,7 @@ import { AnimatePresence } from 'motion/react';
 import { TypingArea } from './components/TypingArea';
 import { ResultsModal } from './components/ResultsModal';
 import { BlogSection } from './components/BlogSection';
+import { AffiliateRotator } from './components/AffiliateRotator';
 import { TypingStats, User, RankingEntry } from './types';
 import { dbService } from './services/db';
 import { cn } from './lib/utils';
@@ -11,8 +12,6 @@ import { SEOMeta, JSONLD } from './components/SEOMeta';
 export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
   const [showResults, setShowResults] = useState(false);
   const [lastStats, setLastStats] = useState<TypingStats | null>(null);
-
-  const affiliateLink = "https://s.shopee.com.br/5Aouf22y52";
 
   const handleFinish = async (stats: TypingStats) => {
     setLastStats(stats);
@@ -28,6 +27,7 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
         mode: '30s',
         timestamp: Date.now()
       };
+
       await dbService.addRanking(entry);
 
       if (stats.wpm > user.bestWPM) {
@@ -37,15 +37,15 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
     }
   };
 
- const seoData = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "DigiVelox Brasil",
-  "alternateName": "Teste de Digitação Online",
-  "url": "https://digiveloxbr.vercel.app",
-  "description": "Teste de digitação online grátis para medir palavras por minuto, precisão e velocidade no teclado.",
-  "inLanguage": "pt-BR"
-};
+  const seoData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "DigiVelox Brasil",
+    "alternateName": "Teste de Digitação Online",
+    "url": "https://digiveloxbr.vercel.app",
+    "description": "Teste de digitação online grátis para medir palavras por minuto, precisão e velocidade no teclado.",
+    "inLanguage": "pt-BR"
+  };
 
   return (
     <div className="flex flex-1 min-h-[calc(100vh-100px)]">
@@ -54,6 +54,7 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
         description="Teste sua velocidade de digitação online grátis. Descubra seu PPM, precisão, erros e treine para digitar mais rápido no teclado."
         keywords="teste de digitação online, teste ppm, palavras por minuto, digitar rápido, treino de digitação, velocidade de digitação, teste de teclado"
       />
+
       <JSONLD data={seoData} />
 
       <h1 className="absolute opacity-0 pointer-events-none">
@@ -62,7 +63,10 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
 
       <aside className="hidden lg:flex w-[240px] bg-bg-surface border-r border-white/5 p-6 flex-col gap-6">
         <div className="space-y-4">
-          <h3 className="text-brand-neon text-xs font-black uppercase tracking-widest italic">Ranking Diário</h3>
+          <h3 className="text-brand-neon text-xs font-black uppercase tracking-widest italic">
+            Ranking Diário
+          </h3>
+
           <div className="space-y-3">
             {[
               { name: 'velox_ninja', ppm: 142 },
@@ -76,27 +80,20 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
                   i === 0 ? "bg-white/5 border-l-2 border-brand-neon" : "text-gray-400"
                 )}
               >
-                <span className="font-medium truncate mr-2">{i + 1}. {r.name}</span>
-                <span className={cn("font-mono", i === 0 ? "text-brand-neon" : "text-gray-500")}>{r.ppm}</span>
+                <span className="font-medium truncate mr-2">
+                  {i + 1}. {r.name}
+                </span>
+
+                <span className={cn("font-mono", i === 0 ? "text-brand-neon" : "text-gray-500")}>
+                  {r.ppm}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-auto overflow-hidden border border-brand-neon/20 rounded-xl bg-[#0b0e14] hover:border-brand-neon/50 transition-all">
-          <a href={affiliateLink} target="_blank" rel="noopener noreferrer" className="block">
-            <img
-              src="/teclado-banner.webp"
-              alt="Teclado mecânico gamer"
-              className="w-full h-[150px] object-cover"
-            />
-            <div className="p-3 text-center">
-              <h3 className="text-sm font-black text-white mb-2">TECLADOS PARA DIGITAR MELHOR</h3>
-              <div className="bg-brand-neon text-black rounded-lg px-3 py-2 font-black text-xs">
-                VER OFERTAS
-              </div>
-            </div>
-          </a>
+        <div className="mt-auto">
+          <AffiliateRotator />
         </div>
       </aside>
 
@@ -111,8 +108,11 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
             <h2 className="text-3xl font-black italic uppercase tracking-tight text-brand-neon">
               Como fazer o Teste de Digitação Online?
             </h2>
+
             <p className="text-gray-400">
-              O teste de digitação online grátis do DigiVelox Brasil mede velocidade, precisão e palavras por minuto.
+              O teste de digitação online grátis do DigiVelox Brasil mede sua velocidade,
+              precisão e palavras por minuto. Comece a digitar, acompanhe seu PPM e tente
+              superar seu próprio recorde.
             </p>
           </section>
 
@@ -122,38 +122,23 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
 
       <aside className="hidden xl:flex w-[300px] bg-bg-surface border-l border-white/5 p-6 flex-col gap-6">
         <div className="p-5 bg-gradient-to-br from-brand-neon/10 to-transparent border border-brand-neon/20 rounded-xl">
-          <h4 className="text-sm font-black text-brand-neon mb-2 uppercase italic tracking-tight">Dica de Desempenho</h4>
+          <h4 className="text-sm font-black text-brand-neon mb-2 uppercase italic tracking-tight">
+            Dica de Desempenho
+          </h4>
+
           <p className="text-xs text-gray-400 mb-4 leading-relaxed">
-            Mantenha os punhos levemente elevados e pratique diariamente para ganhar até 20% mais velocidade.
+            Mantenha os punhos levemente elevados e pratique diariamente para ganhar mais velocidade.
           </p>
-          <a href="/blog" className="text-[10px] font-black underline text-white hover:text-brand-neon transition-colors uppercase tracking-widest">
+
+          <a
+            href="/blog"
+            className="text-[10px] font-black underline text-white hover:text-brand-neon transition-colors uppercase tracking-widest"
+          >
             LER ARTIGO COMPLETO
           </a>
         </div>
 
-        <div className="overflow-hidden border border-brand-neon/20 rounded-xl bg-[#0b0e14] hover:border-brand-neon/50 transition-all">
-          <a href={affiliateLink} target="_blank" rel="noopener noreferrer" className="block">
-            <img
-              src="/teclado-banner.webp"
-              alt="Teclado gamer para digitação rápida"
-              className="w-full h-[170px] object-cover"
-            />
-
-            <div className="p-4 text-center">
-              <h3 className="text-lg font-black text-white leading-tight mb-2">
-                TECLADO IDEAL PARA TREINAR DIGITAÇÃO
-              </h3>
-
-              <p className="text-xs text-gray-400 mb-4">
-                Mais conforto e velocidade para aumentar seu PPM.
-              </p>
-
-              <div className="bg-brand-neon text-black rounded-lg px-4 py-3 font-black text-sm hover:scale-105 transition-transform">
-                VER OFERTA NA SHOPEE
-              </div>
-            </div>
-          </a>
-        </div>
+        <AffiliateRotator />
       </aside>
 
       <AnimatePresence>
