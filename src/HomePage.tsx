@@ -37,15 +37,15 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
     }
   };
 
-  const seoData = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "DigiVelox Brasil",
-    "alternateName": "Teste de Digitação Online",
-    "url": "https://14evertonalbertocorrea-coder-digive.vercel.app",
-    "description": "Teste de digitação online grátis para medir palavras por minuto, precisão e velocidade no teclado.",
-    "inLanguage": "pt-BR"
-  };
+ const seoData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "DigiVelox Brasil",
+  "alternateName": "Teste de Digitação Online",
+  "url": "https://digiveloxbr.vercel.app",
+  "description": "Teste de digitação online grátis para medir palavras por minuto, precisão e velocidade no teclado.",
+  "inLanguage": "pt-BR"
+};
 
   return (
     <div className="flex flex-1 min-h-[calc(100vh-100px)]">
