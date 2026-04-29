@@ -6,7 +6,6 @@ import { HomePage } from './HomePage';
 import { RankingPage } from './RankingPage';
 import { LandingPage } from './LandingPage';
 import { BlogPostPage } from './BlogPostPage';
-import { MouseTestPage } from './Mouse';
 import { User } from './types';
 import { dbService } from './services/db';
 import { AdminPage } from './AdminPage';
@@ -51,13 +50,11 @@ export default function App() {
             <Route path="/ranking" element={<RankingPage />} />
             <Route path="/blog" element={<HomePage user={user} />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
-            <Route path="/teste-mouse" element={<MouseTestPage />} />
             <Route path="/teste-digitacao-online" element={<LandingPage />} />
             <Route path="/teste-ppm" element={<LandingPage />} />
             <Route path="/treino-teclado" element={<LandingPage />} />
             <Route path="/curso-digitacao" element={<LandingPage />} />
             <Route path="/admin" element={<AdminPage />} />
-          </Routes>
         </main>
 
         <Footer />
