@@ -58,57 +58,21 @@ export const MouseTestPage: React.FC = () => {
       </p>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
-        <div className="glass-card p-6 text-center">
-          <p className="text-xs uppercase text-gray-500 font-black mb-2">Clique Esquerdo</p>
-          <p className="text-4xl font-black text-brand-neon">{leftClick}</p>
-        </div>
-
-        <div className="glass-card p-6 text-center">
-          <p className="text-xs uppercase text-gray-500 font-black mb-2">Clique Direito</p>
-          <p className="text-4xl font-black text-red-400">{rightClick}</p>
-        </div>
-
-        <div className="glass-card p-6 text-center">
-          <p className="text-xs uppercase text-gray-500 font-black mb-2">Botão Meio</p>
-          <p className="text-4xl font-black text-blue-400">{middleClick}</p>
-        </div>
-
-        <div className="glass-card p-6 text-center">
-          <p className="text-xs uppercase text-gray-500 font-black mb-2">Scroll</p>
-          <p className="text-4xl font-black text-purple-400">{scrollCount}</p>
-        </div>
-
-        <div className="glass-card p-6 text-center">
-          <p className="text-xs uppercase text-gray-500 font-black mb-2">Botão Voltar</p>
-          <p className="text-4xl font-black text-yellow-400">{backClick}</p>
-        </div>
-
-        <div className="glass-card p-6 text-center">
-          <p className="text-xs uppercase text-gray-500 font-black mb-2">Botão Avançar</p>
-          <p className="text-4xl font-black text-cyan-400">{forwardClick}</p>
-        </div>
-
-        <div className="glass-card p-6 text-center">
-          <p className="text-xs uppercase text-gray-500 font-black mb-2">Posição X</p>
-          <p className="text-3xl font-black text-white">{mouseX}</p>
-        </div>
-
-        <div className="glass-card p-6 text-center">
-          <p className="text-xs uppercase text-gray-500 font-black mb-2">Posição Y</p>
-          <p className="text-3xl font-black text-white">{mouseY}</p>
-        </div>
+        <div className="glass-card p-6 text-center"><p className="text-xs uppercase text-gray-500 font-black mb-2">Clique Esquerdo</p><p className="text-4xl font-black text-brand-neon">{leftClick}</p></div>
+        <div className="glass-card p-6 text-center"><p className="text-xs uppercase text-gray-500 font-black mb-2">Clique Direito</p><p className="text-4xl font-black text-red-400">{rightClick}</p></div>
+        <div className="glass-card p-6 text-center"><p className="text-xs uppercase text-gray-500 font-black mb-2">Botão Meio</p><p className="text-4xl font-black text-blue-400">{middleClick}</p></div>
+        <div className="glass-card p-6 text-center"><p className="text-xs uppercase text-gray-500 font-black mb-2">Scroll</p><p className="text-4xl font-black text-purple-400">{scrollCount}</p></div>
+        <div className="glass-card p-6 text-center"><p className="text-xs uppercase text-gray-500 font-black mb-2">Botão Voltar</p><p className="text-4xl font-black text-yellow-400">{backClick}</p></div>
+        <div className="glass-card p-6 text-center"><p className="text-xs uppercase text-gray-500 font-black mb-2">Botão Avançar</p><p className="text-4xl font-black text-cyan-400">{forwardClick}</p></div>
+        <div className="glass-card p-6 text-center"><p className="text-xs uppercase text-gray-500 font-black mb-2">Posição X</p><p className="text-3xl font-black text-white">{mouseX}</p></div>
+        <div className="glass-card p-6 text-center"><p className="text-xs uppercase text-gray-500 font-black mb-2">Posição Y</p><p className="text-3xl font-black text-white">{mouseY}</p></div>
       </div>
 
       <div className="glass-card p-10 text-center">
-        <a
-          href={mouseAffiliateLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block mb-6 hover:scale-105 transition-transform"
-        >
+        <a href={mouseAffiliateLink} target="_blank" rel="noopener noreferrer" className="inline-block mb-6 hover:scale-105 transition-transform">
           <img
             src="/mouse-banner.webp"
-            alt="Mouse gamer RGB em oferta na Shopee"
+            alt="Mouse gamer RGB"
             className="mx-auto w-[280px] rounded-2xl border border-brand-neon/20 shadow-[0_0_25px_rgba(0,255,156,0.12)]"
           />
         </a>
