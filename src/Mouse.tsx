@@ -10,6 +10,8 @@ export const MouseTestPage: React.FC = () => {
   const [mouseX, setMouseX] = useState(0);
   const [mouseY, setMouseY] = useState(0);
 
+  const mouseAffiliateLink = 'https://s.shopee.com.br/2g7aayvHrR';
+
   useEffect(() => {
     const handleMouseDown = (e: MouseEvent) => {
       if (e.button === 0) setLeftClick((v) => v + 1);
@@ -98,19 +100,35 @@ export const MouseTestPage: React.FC = () => {
       </div>
 
       <div className="glass-card p-10 text-center">
-        <img
-          src="/mouse-banner.webp"
-          alt="mouse"
-          className="mx-auto w-[280px] mb-6 rounded-2xl border border-brand-neon/20"
-        />
+        <a
+          href={mouseAffiliateLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block mb-6 hover:scale-105 transition-transform"
+        >
+          <img
+            src="/mouse-banner.webp"
+            alt="Mouse gamer RGB em oferta na Shopee"
+            className="mx-auto w-[280px] rounded-2xl border border-brand-neon/20 shadow-[0_0_25px_rgba(0,255,156,0.12)]"
+          />
+        </a>
 
         <p className="text-brand-neon uppercase font-black tracking-widest mb-2">
           MOUSE DETECTADO E ATIVO
         </p>
 
-        <p className="text-gray-400 max-w-2xl mx-auto">
+        <p className="text-gray-400 max-w-2xl mx-auto mb-6">
           Clique em qualquer botão do mouse, use o scroll e movimente o cursor para verificar se todos os sensores estão respondendo corretamente.
         </p>
+
+        <a
+          href={mouseAffiliateLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block bg-brand-neon text-black rounded-xl px-8 py-4 font-black text-sm hover:scale-105 transition-transform"
+        >
+          VER MOUSE NA SHOPEE
+        </a>
       </div>
     </div>
   );
