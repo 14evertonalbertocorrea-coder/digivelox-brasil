@@ -48,18 +48,26 @@ export const TypingArea: React.FC<TypingAreaProps> = ({ onFinish }) => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-      {/* Controls */}
-      <div className="flex gap-4 mb-16">
+    <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
+
+      <h1 className="text-4xl md:text-6xl font-black uppercase italic tracking-tight text-center mb-3">
+        TESTE DE DIGITAÇÃO <span className="text-brand-neon">ONLINE</span>
+      </h1>
+
+      <p className="text-gray-400 text-center max-w-2xl mb-12 text-sm md:text-base">
+        Descubra sua velocidade no teclado, bata recordes e desafie seus amigos no ranking DigiVelox Brasil.
+      </p>
+
+      <div className="flex gap-4 mb-14">
         {(['15s', '30s', '60s'] as TestMode[]).map((m) => (
           <button
             key={m}
             onClick={() => !isActive && setMode(m)}
             disabled={isActive}
             className={cn(
-              "px-8 py-2 rounded-full border text-sm font-bold transition-all",
+              "px-8 py-3 rounded-full border text-sm font-black transition-all uppercase tracking-widest",
               mode === m
-                ? "border-brand-neon text-brand-neon bg-brand-neon/10"
+                ? "border-brand-neon text-brand-neon bg-brand-neon/10 shadow-[0_0_15px_rgba(0,255,156,0.15)]"
                 : "border-white/10 text-gray-500 hover:text-brand-neon hover:border-brand-neon"
             )}
           >
@@ -68,38 +76,36 @@ export const TypingArea: React.FC<TypingAreaProps> = ({ onFinish }) => {
         ))}
       </div>
 
-      {/* Stats */}
-      <div className="w-full max-w-4xl mb-10 flex justify-between items-end">
-        <div className="flex gap-12">
-          <div className="text-center cursor-pointer" onClick={() => inputRef.current?.focus()}>
-            <span className="block text-[10px] text-gray-500 uppercase font-black tracking-widest mb-1">Tempo</span>
-            <span className="text-6xl heading-italic text-brand-neon">{formatTime(timeLeft)}</span>
-          </div>
-          <div className="text-center">
-            <span className="block text-[10px] text-gray-500 uppercase font-black tracking-widest mb-1">PPM</span>
-            <span className="text-6xl heading-italic text-white">
-              {calculateWPM(userInput.length, parseInt(mode) - timeLeft)}
-            </span>
-          </div>
+      <div className="w-full max-w-5xl mb-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div onClick={() => inputRef.current?.focus()} className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center cursor-pointer">
+          <span className="block text-[10px] text-gray-500 uppercase font-black tracking-widest mb-2">Tempo</span>
+          <span className="text-5xl heading-italic text-brand-neon">{formatTime(timeLeft)}</span>
         </div>
 
-        <div className="flex gap-8">
-          <div className="text-right">
-            <span className="block text-[10px] text-gray-500 uppercase font-black tracking-widest">Precisão</span>
-            <span className="text-2xl font-black italic">{stats.accuracy}%</span>
-          </div>
-          <div className="text-right">
-            <span className="block text-[10px] text-gray-500 uppercase font-black tracking-widest">Erros</span>
-            <span className="text-2xl font-black italic text-brand-danger">{stats.errors}</span>
-          </div>
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+          <span className="block text-[10px] text-gray-500 uppercase font-black tracking-widest mb-2">PPM Atual</span>
+          <span className="text-5xl heading-italic text-white">
+            {calculateWPM(userInput.length, parseInt(mode) - timeLeft)}
+          </span>
+        </div>
+
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+          <span className="block text-[10px] text-gray-500 uppercase font-black tracking-widest mb-2">Precisão</span>
+          <span className="text-4xl font-black italic text-blue-400">{stats.accuracy}%</span>
+        </div>
+
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+          <span className="block text-[10px] text-gray-500 uppercase font-black tracking-widest mb-2">Erros</span>
+          <span className="text-4xl font-black italic text-brand-danger">{stats.errors}</span>
         </div>
       </div>
 
-      {/* Typing Text */}
       <div
-        className="w-full max-w-4xl min-h-[220px] bg-white/5 border border-white/10 rounded-3xl p-8 text-2xl md:text-3xl font-medium leading-loose relative cursor-text mb-8"
+        className="w-full max-w-5xl min-h-[240px] bg-gradient-to-b from-white/5 to-white/[0.03] border border-brand-neon/20 rounded-3xl p-8 md:p-10 text-2xl md:text-3xl font-medium leading-loose relative cursor-text mb-8 shadow-[0_0_30px_rgba(0,255,156,0.08)]"
         onClick={() => inputRef.current?.focus()}
       >
+        <div className="absolute inset-0 rounded-3xl pointer-events-none border border-brand-neon/10" />
+
         <div className="select-none break-words whitespace-pre-wrap">
           {text.split('').map((char, i) => renderChar(char, i))}
         </div>
@@ -116,15 +122,14 @@ export const TypingArea: React.FC<TypingAreaProps> = ({ onFinish }) => {
 
         <div className="absolute bottom-0 left-0 h-1 bg-white/5 w-full rounded-full overflow-hidden">
           <motion.div
-            className="h-full bg-brand-neon shadow-[0_0_10px_rgba(0,255,156,0.6)]"
+            className="h-full bg-brand-neon shadow-[0_0_15px_rgba(0,255,156,0.8)]"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
           />
         </div>
       </div>
 
-      {/* Buttons */}
-      <div className="mt-8 flex gap-4">
+      <div className="mt-6 flex gap-4 flex-wrap justify-center">
         <button
           onClick={() => {
             reset();
@@ -139,12 +144,11 @@ export const TypingArea: React.FC<TypingAreaProps> = ({ onFinish }) => {
           onClick={() => (window.location.href = '/ranking')}
           className="border border-white/20 px-8 py-5 rounded-xl font-bold hover:bg-white/5 transition-colors"
         >
-          RANKING GERAL
+          VER RANKING GERAL
         </button>
       </div>
 
-      {/* Badges */}
-      <div className="mt-14 w-full max-w-2xl bg-white/5 border border-white/10 p-4 rounded-2xl flex items-center justify-around">
+      <div className="mt-14 w-full max-w-3xl bg-white/5 border border-white/10 p-6 rounded-2xl flex items-center justify-around">
         {[
           { icon: '🥉', label: 'Iniciante', active: true },
           { icon: '🥈', label: 'Rápido', active: stats.wpm >= 40 },
@@ -154,15 +158,15 @@ export const TypingArea: React.FC<TypingAreaProps> = ({ onFinish }) => {
           <div key={i} className={cn("flex flex-col items-center", !bad.active && "opacity-30")}>
             <div
               className={cn(
-                "w-12 h-12 rounded-full flex items-center justify-center mb-1 transition-all",
+                "w-14 h-14 rounded-full flex items-center justify-center mb-2 text-xl transition-all",
                 bad.active
-                  ? "bg-brand-neon/20 border border-brand-neon shadow-[0_0_15px_rgba(0,255,156,0.2)]"
+                  ? "bg-brand-neon/20 border border-brand-neon shadow-[0_0_20px_rgba(0,255,156,0.25)]"
                   : "bg-gray-800"
               )}
             >
               {bad.icon}
             </div>
-            <span className={cn("text-[10px] uppercase font-bold", bad.active && "text-brand-neon")}>
+            <span className={cn("text-[11px] uppercase font-bold tracking-wider", bad.active && "text-brand-neon")}>
               {bad.label}
             </span>
           </div>
