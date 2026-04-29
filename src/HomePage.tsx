@@ -12,6 +12,8 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
   const [showResults, setShowResults] = useState(false);
   const [lastStats, setLastStats] = useState<TypingStats | null>(null);
 
+  const affiliateLink = "https://s.shopee.com.br/5Aouf22y52";
+
   const handleFinish = async (stats: TypingStats) => {
     setLastStats(stats);
     setShowResults(true);
@@ -47,7 +49,7 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
 
   return (
     <div className="flex flex-1 min-h-[calc(100vh-100px)]">
-      <SEOMeta 
+      <SEOMeta
         title="Teste de Digitação Online Grátis em Português | DigiVelox Brasil"
         description="Teste sua velocidade de digitação online grátis. Descubra seu PPM, precisão, erros e treine para digitar mais rápido no teclado."
         keywords="teste de digitação online, teste ppm, palavras por minuto, digitar rápido, treino de digitação, velocidade de digitação, teste de teclado"
@@ -67,10 +69,13 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
               { name: 'gabi_keys', ppm: 128 },
               { name: 'flash_br', ppm: 115 },
             ].map((r, i) => (
-              <div key={i} className={cn(
-                "flex justify-between items-center text-sm p-3 rounded transition-colors",
-                i === 0 ? "bg-white/5 border-l-2 border-brand-neon" : "text-gray-400"
-              )}>
+              <div
+                key={i}
+                className={cn(
+                  "flex justify-between items-center text-sm p-3 rounded transition-colors",
+                  i === 0 ? "bg-white/5 border-l-2 border-brand-neon" : "text-gray-400"
+                )}
+              >
                 <span className="font-medium truncate mr-2">{i + 1}. {r.name}</span>
                 <span className={cn("font-mono", i === 0 ? "text-brand-neon" : "text-gray-500")}>{r.ppm}</span>
               </div>
@@ -79,14 +84,14 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
         </div>
 
         <div className="mt-auto overflow-hidden border border-brand-neon/20 rounded-xl bg-[#0b0e14] hover:border-brand-neon/50 transition-all">
-          <a href="https://s.shopee.com.br/5Aouf22y52" target="_blank" rel="noopener noreferrer" className="block">
+          <a href={affiliateLink} target="_blank" rel="noopener noreferrer" className="block">
             <img
               src="/teclado-banner.webp"
               alt="Teclado mecânico gamer"
-              className="w-full h-[160px] object-cover"
+              className="w-full h-[150px] object-cover"
             />
             <div className="p-3 text-center">
-              <h3 className="text-sm font-black text-white mb-2">TECLADOS MAIS RÁPIDOS</h3>
+              <h3 className="text-sm font-black text-white mb-2">TECLADOS PARA DIGITAR MELHOR</h3>
               <div className="bg-brand-neon text-black rounded-lg px-3 py-2 font-black text-xs">
                 VER OFERTAS
               </div>
@@ -103,7 +108,9 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
 
         <div className="mt-20 w-full max-w-4xl space-y-16">
           <section className="prose prose-invert max-w-none">
-            <h2 className="text-3xl font-black italic uppercase tracking-tight text-brand-neon">Como fazer o Teste de Digitação Online?</h2>
+            <h2 className="text-3xl font-black italic uppercase tracking-tight text-brand-neon">
+              Como fazer o Teste de Digitação Online?
+            </h2>
             <p className="text-gray-400">
               O teste de digitação online grátis do DigiVelox Brasil mede velocidade, precisão e palavras por minuto.
             </p>
@@ -124,17 +131,12 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
           </a>
         </div>
 
-        <div className="flex-1 overflow-hidden border border-brand-neon/20 rounded-xl bg-[#0b0e14] hover:border-brand-neon/50 transition-all">
-          <a
-            href="https://s.shopee.com.br/5Aouf22y52"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block h-full"
-          >
+        <div className="overflow-hidden border border-brand-neon/20 rounded-xl bg-[#0b0e14] hover:border-brand-neon/50 transition-all">
+          <a href={affiliateLink} target="_blank" rel="noopener noreferrer" className="block">
             <img
               src="/teclado-banner.webp"
               alt="Teclado gamer para digitação rápida"
-              className="w-full h-[220px] object-cover"
+              className="w-full h-[170px] object-cover"
             />
 
             <div className="p-4 text-center">
