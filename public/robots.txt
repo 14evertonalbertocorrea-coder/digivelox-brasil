@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: Sitemap: https://14evertonalbertocorrea-coder-digive.vercel.app/sitemap.xml
+Sitemap: https://digiveloxbr.vercel.app/sitemap.xml
