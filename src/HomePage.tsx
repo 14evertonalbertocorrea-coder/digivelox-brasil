@@ -29,11 +29,6 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
       };
 
       await dbService.addRanking(entry);
-
-      if (stats.wpm > user.bestWPM) {
-        const updatedUser = { ...user, bestWPM: stats.wpm };
-        await dbService.saveUser(updatedUser);
-      }
     }
   };
 
@@ -57,10 +52,6 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
 
       <JSONLD data={seoData} />
 
-      <h1 className="absolute opacity-0 pointer-events-none">
-        Teste de Digitação Online Grátis - Descubra sua Velocidade de Digitação e PPM no DigiVelox Brasil
-      </h1>
-
       <aside className="hidden lg:flex w-[240px] bg-bg-surface border-r border-white/5 p-6 flex-col gap-6">
         <div className="space-y-4">
           <h3 className="text-brand-neon text-xs font-black uppercase tracking-widest italic">
@@ -80,13 +71,8 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
                   i === 0 ? "bg-white/5 border-l-2 border-brand-neon" : "text-gray-400"
                 )}
               >
-                <span className="font-medium truncate mr-2">
-                  {i + 1}. {r.name}
-                </span>
-
-                <span className={cn("font-mono", i === 0 ? "text-brand-neon" : "text-gray-500")}>
-                  {r.ppm}
-                </span>
+                <span className="font-medium truncate mr-2">{i + 1}. {r.name}</span>
+                <span className="font-mono">{r.ppm}</span>
               </div>
             ))}
           </div>
@@ -97,11 +83,13 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
         </div>
       </aside>
 
-      <main className="flex-1 p-8 flex flex-col items-center justify-center relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-neon/5 rounded-full blur-[120px] -mr-64 -mt-64" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[120px] -ml-64 -mb-64" />
-
+      <main className="flex-1 p-4 md:p-8 flex flex-col items-center justify-center relative overflow-hidden">
         <TypingArea onFinish={handleFinish} />
+
+        {/* Banner mobile */}
+        <div className="block xl:hidden w-full max-w-md mt-10">
+          <AffiliateRotator />
+        </div>
 
         <div className="mt-20 w-full max-w-4xl space-y-16">
           <section className="prose prose-invert max-w-none">
