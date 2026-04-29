@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { TypingArea } from './components/TypingArea';
 import { ResultsModal } from './components/ResultsModal';
@@ -12,6 +12,16 @@ import { SEOMeta, JSONLD } from './components/SEOMeta';
 export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
   const [showResults, setShowResults] = useState(false);
   const [lastStats, setLastStats] = useState<TypingStats | null>(null);
+  const [challengePPM, setChallengePPM] = useState<number | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const desafio = params.get('desafio');
+
+    if (desafio) {
+      setChallengePPM(Number(desafio));
+    }
+  }, []);
 
   const handleFinish = async (stats: TypingStats) => {
     setLastStats(stats);
@@ -84,9 +94,21 @@ export const HomePage: React.FC<{ user: User | null }> = ({ user }) => {
       </aside>
 
       <main className="flex-1 p-4 md:p-8 flex flex-col items-center justify-center relative overflow-hidden">
+        {challengePPM && (
+          <div className="w-full max-w-3xl mb-8 bg-brand-neon/10 border border-brand-neon/30 rounded-2xl p-5 text-center animate-pulse">
+            <h2 className="text-brand-neon text-xl md:text-2xl font-black uppercase tracking-widest mb-2">
+              🔥 Desafio Recebido
+            </h2>
+            <p className="text-white text-sm md:text-base font-semibold">
+              Um amigo fez <span className="text-brand-neon">{challengePPM} PPM</span> no DigiVelox Brasil.
+              <br />
+              Você consegue bater esse recorde?
+            </p>
+          </div>
+        )}
+
         <TypingArea onFinish={handleFinish} />
 
-        {/* Banner mobile */}
         <div className="block xl:hidden w-full max-w-md mt-10">
           <AffiliateRotator />
         </div>
