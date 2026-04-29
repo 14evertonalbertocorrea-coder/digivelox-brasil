@@ -6,6 +6,7 @@ import { HomePage } from './HomePage';
 import { RankingPage } from './RankingPage';
 import { LandingPage } from './LandingPage';
 import { BlogPostPage } from './BlogPostPage';
+import { MouseTestPage } from './MouseTestPage';
 import { User } from './types';
 import { dbService } from './services/db';
 import { AdminPage } from './AdminPage';
@@ -24,6 +25,10 @@ function SeoUpdater() {
       '/ranking': {
         title: 'Ranking de Digitação Online | DigiVelox Brasil',
         description: 'Veja o ranking dos melhores resultados no teste de digitação online do DigiVelox Brasil.',
+      },
+      '/teste-mouse': {
+        title: 'Teste de Mouse Online Grátis | DigiVelox Brasil',
+        description: 'Teste os botões do mouse online grátis. Verifique clique esquerdo, direito, scroll, botão do meio e botões laterais.',
       },
       '/teste-digitacao-online': {
         title: 'Teste de Digitação Online Grátis em Português',
@@ -133,6 +138,7 @@ export default function App() {
               <Route path="/ranking" element={<RankingPage />} />
               <Route path="/blog" element={<HomePage user={user} />} />
               <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/teste-mouse" element={<MouseTestPage />} />
               <Route path="/teste-digitacao-online" element={<LandingPage />} />
               <Route path="/teste-ppm" element={<LandingPage />} />
               <Route path="/treino-teclado" element={<LandingPage />} />
