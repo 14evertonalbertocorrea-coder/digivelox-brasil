@@ -1,6 +1,14 @@
 import React, { useRef } from 'react';
 import { motion } from 'motion/react';
-import { Trophy, Share2, RefreshCw, Download, ArrowRight } from 'lucide-react';
+import {
+  Trophy,
+  Share2,
+  RefreshCw,
+  Download,
+  ArrowRight,
+  Copy,
+  MessageCircle
+} from 'lucide-react';
 import { TypingStats, BadgeType } from '../types';
 import { BADGES, BLOG_POSTS } from '../constants';
 import confetti from 'canvas-confetti';
@@ -16,6 +24,11 @@ interface ResultsModalProps {
 export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, onShare }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const affiliateLink = "https://s.shopee.com.br/5Aouf22y52";
+
+  const siteUrl = "https://digiveloxbr.vercel.app";
+  const challengeUrl = `${siteUrl}?desafio=${stats.wpm}`;
+
+  const shareText = `Acabei de fazer ${stats.wpm} PPM com ${stats.accuracy}% de precisão no DigiVelox Brasil. Duvido você me bater 👇 ${challengeUrl}`;
 
   React.useEffect(() => {
     if (stats.wpm > 40) {
@@ -41,11 +54,47 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
     }
   };
 
+  const handleWhatsAppShare = () => {
+    window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+  };
+
+  const handleCopyChallenge = async () => {
+    try {
+      await navigator.clipboard.writeText(shareText);
+      alert('Desafio copiado! Agora é só mandar para seus amigos.');
+    } catch {
+      alert('Não foi possível copiar. Tente novamente.');
+    }
+  };
+
+  const handleNativeShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Meu resultado no DigiVelox Brasil',
+          text: shareText,
+          url: challengeUrl,
+        });
+      } catch {
+        return;
+      }
+    } else {
+      handleCopyChallenge();
+    }
+  };
+
   const getBadge = (wpm: number): BadgeType => {
     if (wpm >= 100) return 'maquina';
     if (wpm >= 70) return 'ninja';
     if (wpm >= 40) return 'rapido';
     return 'iniciante';
+  };
+
+  const getViralPhrase = (wpm: number) => {
+    if (wpm < 40) return "Seu teclado pediu socorro 😅";
+    if (wpm < 80) return "Você está evoluindo! Bora bater 80 PPM?";
+    if (wpm < 120) return "Você já está digitando como um ninja.";
+    return "Você humilhou o teclado 🔥";
   };
 
   const badgeType = getBadge(stats.wpm);
@@ -78,9 +127,14 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
             </div>
           </div>
 
-          <h2 className="text-4xl font-bold mb-2">Teste Concluído!</h2>
-          <p className="text-gray-400 mb-8 italic">
-            "{stats.wpm > 60 ? 'Incrível! Você tem dedos de fogo.' : 'Bom trabalho! Continue praticando para bater recordes.'}"
+          <h2 className="text-4xl font-bold mb-2">🏆 Resultado DigiVelox</h2>
+
+          <p className="text-gray-300 mb-3 italic font-bold">
+            "{getViralPhrase(stats.wpm)}"
+          </p>
+
+          <p className="text-gray-500 mb-8 text-sm">
+            Compartilhe seu resultado e desafie seus amigos.
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
@@ -110,6 +164,38 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
             </div>
           </div>
 
+          <div className="bg-brand-neon/10 border border-brand-neon/30 rounded-2xl p-5 mb-8">
+            <p className="text-xs text-brand-neon uppercase font-black tracking-widest mb-2">
+              Link de desafio
+            </p>
+            <p className="text-sm text-gray-300 break-all">
+              {challengeUrl}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
+            <button
+              onClick={handleWhatsAppShare}
+              className="bg-brand-neon text-black rounded-xl px-4 py-4 font-black text-sm flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform"
+            >
+              <MessageCircle size={19} /> WhatsApp
+            </button>
+
+            <button
+              onClick={handleCopyChallenge}
+              className="btn-outline flex items-center justify-center gap-2"
+            >
+              <Copy size={19} /> Copiar Desafio
+            </button>
+
+            <button
+              onClick={handleNativeShare}
+              className="btn-outline flex items-center justify-center gap-2"
+            >
+              <Share2 size={19} /> Compartilhar
+            </button>
+          </div>
+
           <a
             href={affiliateLink}
             target="_blank"
@@ -134,11 +220,16 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
             <button onClick={onRestart} className="btn-neon flex items-center gap-2">
               <RefreshCw size={20} /> Tentar Novamente
             </button>
-            <button onClick={handleDownloadImage} className="btn-outline flex items-center gap-2 bg-brand-neon/10 border-brand-neon/30 hover:bg-brand-neon/20">
+
+            <button
+              onClick={handleDownloadImage}
+              className="btn-outline flex items-center gap-2 bg-brand-neon/10 border-brand-neon/30 hover:bg-brand-neon/20"
+            >
               <Download size={20} className="text-brand-neon" /> Baixar Score
             </button>
+
             <button onClick={onShare} className="btn-outline flex items-center gap-2">
-              <Share2 size={20} /> Compartilhar
+              <Share2 size={20} /> Compartilhar Normal
             </button>
           </div>
 
@@ -151,6 +242,7 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
           <h3 className="text-xl font-black italic uppercase tracking-tight text-brand-neon text-center mb-6">
             Aumente sua Velocidade
           </h3>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {BLOG_POSTS.slice(0, 2).map((post, i) => (
               <Link
@@ -160,9 +252,14 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
                 onClick={onRestart}
               >
                 <div className="max-w-[70%]">
-                  <h4 className="text-sm font-bold leading-tight group-hover:text-brand-neon transition-colors truncate">{post.title}</h4>
-                  <p className="text-[10px] text-gray-500 uppercase mt-1">Dica de Especialista</p>
+                  <h4 className="text-sm font-bold leading-tight group-hover:text-brand-neon transition-colors truncate">
+                    {post.title}
+                  </h4>
+                  <p className="text-[10px] text-gray-500 uppercase mt-1">
+                    Dica de Especialista
+                  </p>
                 </div>
+
                 <ArrowRight size={18} className="text-brand-neon group-hover:translate-x-1 transition-transform" />
               </Link>
             ))}
