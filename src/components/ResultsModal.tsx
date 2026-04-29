@@ -51,6 +51,16 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
   const badgeType = getBadge(stats.wpm);
   const badge = BADGES[badgeType];
 
+  const offerTitle =
+    stats.wpm < 40
+      ? "SEU TECLADO PODE ESTAR TE ATRASANDO"
+      : "QUER SUBIR AINDA MAIS SEU PPM?";
+
+  const offerText =
+    stats.wpm < 40
+      ? "Um teclado mais confortável pode reduzir erros e ajudar você a ganhar velocidade nos próximos testes."
+      : "Se você já digita bem, um teclado confortável pode ajudar a manter ritmo, precisão e menos cansaço.";
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -109,15 +119,13 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
             <img
               src="/teclado-banner.webp"
               alt="Teclado para digitar mais rápido"
-              className="w-full h-[220px] object-cover"
+              className="w-full h-[190px] object-cover"
             />
             <div className="p-5">
-              <h3 className="text-2xl font-black text-white mb-2">QUER SUBIR SEU PPM MAIS RÁPIDO?</h3>
-              <p className="text-sm text-gray-400 mb-4">
-                O teclado certo reduz erros e aumenta sua velocidade de digitação.
-              </p>
+              <h3 className="text-2xl font-black text-white mb-2">{offerTitle}</h3>
+              <p className="text-sm text-gray-400 mb-4">{offerText}</p>
               <div className="bg-brand-neon text-black rounded-lg px-4 py-3 font-black text-sm">
-                VER TECLADO RECOMENDADO NA SHOPEE
+                VER TECLADOS NA SHOPEE
               </div>
             </div>
           </a>
