@@ -1,7 +1,6 @@
-
 import React, { useRef } from 'react';
 import { motion } from 'motion/react';
-import { Trophy, Share2, RefreshCw, Award, MessageSquare, Download, ArrowRight } from 'lucide-react';
+import { Trophy, Share2, RefreshCw, Download, ArrowRight } from 'lucide-react';
 import { TypingStats, BadgeType } from '../types';
 import { BADGES, BLOG_POSTS } from '../constants';
 import confetti from 'canvas-confetti';
@@ -16,6 +15,7 @@ interface ResultsModalProps {
 
 export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, onShare }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const affiliateLink = "https://s.shopee.com.br/5Aouf22y52";
 
   React.useEffect(() => {
     if (stats.wpm > 40) {
@@ -52,14 +52,13 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
   const badge = BADGES[badgeType];
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-start p-4 md:p-8 bg-black/90 backdrop-blur-md overflow-y-auto"
     >
       <div className="max-w-2xl w-full flex flex-col gap-6 py-4">
         <div ref={modalRef} className="glass-card w-full p-8 md:p-12 text-center relative overflow-hidden">
-          {/* Background glow */}
           <div className="absolute -top-24 -left-24 w-48 h-48 bg-brand-neon/10 rounded-full blur-3xl" />
           <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl" />
 
@@ -70,7 +69,9 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
           </div>
 
           <h2 className="text-4xl font-bold mb-2">Teste Concluído!</h2>
-          <p className="text-gray-400 mb-8 italic">"{stats.wpm > 60 ? 'Incrível! Você tem dedos de fogo.' : 'Bom trabalho! Continue praticando para bater recordes.'}"</p>
+          <p className="text-gray-400 mb-8 italic">
+            "{stats.wpm > 60 ? 'Incrível! Você tem dedos de fogo.' : 'Bom trabalho! Continue praticando para bater recordes.'}"
+          </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
             <div className="bg-white/5 p-4 rounded-xl">
@@ -99,6 +100,28 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
             </div>
           </div>
 
+          <a
+            href={affiliateLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block mb-8 border border-brand-neon/20 rounded-2xl overflow-hidden hover:border-brand-neon/50 transition-all bg-[#0b0e14]"
+          >
+            <img
+              src="/teclado-banner.webp"
+              alt="Teclado para digitar mais rápido"
+              className="w-full h-[220px] object-cover"
+            />
+            <div className="p-5">
+              <h3 className="text-2xl font-black text-white mb-2">QUER SUBIR SEU PPM MAIS RÁPIDO?</h3>
+              <p className="text-sm text-gray-400 mb-4">
+                O teclado certo reduz erros e aumenta sua velocidade de digitação.
+              </p>
+              <div className="bg-brand-neon text-black rounded-lg px-4 py-3 font-black text-sm">
+                VER TECLADO RECOMENDADO NA SHOPEE
+              </div>
+            </div>
+          </a>
+
           <div className="flex flex-wrap justify-center gap-4">
             <button onClick={onRestart} className="btn-neon flex items-center gap-2">
               <RefreshCw size={20} /> Tentar Novamente
@@ -110,20 +133,21 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({ stats, onRestart, on
               <Share2 size={20} /> Compartilhar
             </button>
           </div>
-          
+
           <p className="mt-8 text-sm text-gray-500">
             Sua pontuação foi salva no ranking global brasileiro.
           </p>
         </div>
 
-        {/* Engagement: Related Articles */}
         <div className="w-full space-y-4">
-          <h3 className="text-xl font-black italic uppercase tracking-tight text-brand-neon text-center mb-6">Aumente sua Velocidade</h3>
+          <h3 className="text-xl font-black italic uppercase tracking-tight text-brand-neon text-center mb-6">
+            Aumente sua Velocidade
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {BLOG_POSTS.slice(0, 2).map((post, i) => (
-              <Link 
-                key={i} 
-                to={`/blog/${post.slug}`} 
+              <Link
+                key={i}
+                to={`/blog/${post.slug}`}
                 className="bg-white/5 border border-white/10 p-5 rounded-2xl flex items-center justify-between group hover:border-brand-neon/40 transition-colors"
                 onClick={onRestart}
               >
