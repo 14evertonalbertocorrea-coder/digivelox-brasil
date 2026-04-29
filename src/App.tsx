@@ -6,7 +6,7 @@ import { HomePage } from './HomePage';
 import { RankingPage } from './RankingPage';
 import { LandingPage } from './LandingPage';
 import { BlogPostPage } from './BlogPostPage';
-import { MouseTestPage } from './MouseTestPage.tsx';
+import { MouseTestPage } from './Mouse';
 import { User } from './types';
 import { dbService } from './services/db';
 import { AdminPage } from './AdminPage';
