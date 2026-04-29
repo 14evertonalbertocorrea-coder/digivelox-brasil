@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
@@ -11,7 +10,7 @@ import { User } from './types';
 import { dbService } from './services/db';
 import { AdminPage } from './AdminPage';
 
-const SITE_URL = 'https://14evertonalbertocorrea-coder-digive.vercel.app';
+const SITE_URL = 'https://digiveloxbr.vercel.app';
 
 function SeoUpdater() {
   const location = useLocation();
@@ -75,6 +74,7 @@ function SeoUpdater() {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
+
     canonical.setAttribute('href', canonicalUrl);
 
     setMeta('description', data.description);
@@ -103,6 +103,7 @@ export default function App() {
       const savedUser = await dbService.getUser();
       if (savedUser) setUser(savedUser);
     };
+
     fetchUser();
   }, []);
 
@@ -114,26 +115,35 @@ export default function App() {
   return (
     <BrowserRouter>
       <SeoUpdater />
-      <div className="min-h-screen flex flex-col bg-[#0b0e14] text-white">
-        <Header user={user} onLogin={handleLogin} />
 
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<HomePage user={user} />} />
-            <Route path="/ranking" element={<RankingPage />} />
-            <Route path="/blog" element={<HomePage user={user} />} />
-            <Route path="/blog/:slug" element={<BlogPostPage />} />
-            <Route path="/teste-digitacao-online" element={<LandingPage />} />
-            <Route path="/teste-ppm" element={<LandingPage />} />
-            <Route path="/treino-teclado" element={<LandingPage />} />
-            <Route path="/curso-digitacao" element={<LandingPage />} />
-            <Route path="/admin" element={<AdminPage />} />
-          </Routes>
-        </main>
+      <div className="min-h-screen flex flex-col bg-[#070b12] text-white relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[-120px] left-[10%] w-[500px] h-[500px] bg-brand-neon/10 rounded-full blur-[140px]" />
+          <div className="absolute top-[30%] right-[-120px] w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[-150px] left-[35%] w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[150px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,156,0.03),transparent_60%)]" />
+        </div>
 
-        <Footer />
+        <div className="relative z-10 min-h-screen flex flex-col">
+          <Header user={user} onLogin={handleLogin} />
+
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<HomePage user={user} />} />
+              <Route path="/ranking" element={<RankingPage />} />
+              <Route path="/blog" element={<HomePage user={user} />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/teste-digitacao-online" element={<LandingPage />} />
+              <Route path="/teste-ppm" element={<LandingPage />} />
+              <Route path="/treino-teclado" element={<LandingPage />} />
+              <Route path="/curso-digitacao" element={<LandingPage />} />
+              <Route path="/admin" element={<AdminPage />} />
+            </Routes>
+          </main>
+
+          <Footer />
+        </div>
       </div>
     </BrowserRouter>
   );
 }
-
